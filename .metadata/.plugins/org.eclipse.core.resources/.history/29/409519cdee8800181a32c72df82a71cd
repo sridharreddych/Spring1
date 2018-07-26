@@ -1,0 +1,6 @@
+package com.hcl.myhotel.constants;
+
+public class HotelConstants {
+	public static final String ENTRY = "ENTRY";
+	public static final String EXIT = "EXIT";
+}

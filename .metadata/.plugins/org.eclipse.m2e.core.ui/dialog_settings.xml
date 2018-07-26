@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
+	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="F:\Spring1\spring-boot-rest-example-master"/>
+			<item value="F:\Spring2MS\Spring boot intializr WS\stock-price-viewer-microservices-part2-final-master"/>
+			<item value="F:\Spring2MS\Spring boot intializr WS\stock-price-viewer-microservices-part1-master"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-rest-service-filtering"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-rest-service-exception-handling"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-rest-service-content-negotiation"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-rest-service-basic"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-myBatis-with-h2"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-jpa-with-hibernate-and-h2"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-jpa-spring-data-rest"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-2-jdbc-with-h2"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-rest-services-with-unit-and-integration-tests"/>
+			<item value="F:\Spring1\spring-boot-examples-master\spring-boot-examples-master\spring-boot-rest-services"/>
+			<item value="F:\Spring1\loan(2)\loan"/>
+			<item value="F:\Spring1\OnlineTradingApplication\OnlineTradingApplication"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="StockMicroServicesPart2"/>
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+</section>

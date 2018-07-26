@@ -1,0 +1,5 @@
+package com.hcl.myhotel.exception;
+
+public class HotelIDNotFoundException {
+
+}

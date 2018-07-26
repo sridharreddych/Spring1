@@ -1,0 +1,15 @@
+package com.khoubyari.example.exception;
+
+public class HotelDetailsNotFoundException  extends Exception{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public LoanOfferException(String message)
+	{
+		super(message);
+	}
+
+}

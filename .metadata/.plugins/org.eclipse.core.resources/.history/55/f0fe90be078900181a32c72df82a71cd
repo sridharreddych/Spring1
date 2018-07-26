@@ -1,0 +1,5 @@
+package com.hcl.myhotel.service;
+
+public interface HotelService {
+
+}

@@ -1,0 +1,100 @@
+package com.hcl.myhotel;
+
+import static org.junit.Assert.assertNotNull;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
+
+import com.channel4.mint.promocampaign.json.model.PromoCampaignDetails;
+import com.channel4.mint.promocampaign.json.model.ScheduledEpisode;
+import com.hcl.myhotel.api.rest.HotelController;
+import com.hcl.myhotel.domain.Hotel;
+import com.hcl.myhotel.exception.HotelDetailsNotFoundException;
+import com.hcl.myhotel.exception.HotelIDNotFoundException;
+import com.hcl.myhotel.exception.RecordNotFoundException;
+import com.hcl.myhotel.service.HotelServiceImpl;
+
+@RunWith(MockitoJUnitRunner.class)
+public class HotelControllerTest {
+
+	@InjectMocks
+	private HotelController hotelController;
+
+	@Mock
+	private HotelServiceImpl hotelServiceImpl;
+
+	private static final Long HOTEL_ID = 1L;
+
+	Hotel hotel;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		hotel = new Hotel();
+		hotel.setCity("hyd");
+		hotel.setDescription("rich city");
+		hotel.setId(1);
+		hotel.setName("sree");
+		hotel.setRating(7);
+	}
+
+	@Test
+	public void testCreateHotel() throws Exception {
+
+		Mockito.when(hotelServiceImpl.createHotel(hotel)).thenReturn(hotel);
+		ResponseEntity<Hotel> hotelEntity = hotelController.createHotel(hotel);
+		assertNotNull(hotelEntity);
+	}
+
+	@Test(expected=RecordNotFoundException.class)
+	public void testSaveLoanDetailsException() throws Exception{		
+		Mockito.when(hotelServiceImpl.getHotel(HOTEL_ID)).thenThrow(new RecordNotFoundException());
+		hotelController.getHotel(HOTEL_ID);		
+	}
+
+	@Test
+	public void testUpdateHotelDetails() {
+		try {
+			hotelController.updateHotel(HOTEL_ID, hotel);
+		} catch (HotelDetailsNotFoundException e) {
+
+		}
+	}
+	
+	@Before
+	public void init() {
+		MockitoAnnotations.initMocks(this);
+		this.mockMvc = MockMvcBuilders.standaloneSetup(promocampaignApiControllerImpl).build();
+		scheduledEpisodes = new com.channel4.mint.promocampaign.json.model.ScheduledEpisodes();
+		scheduledEpisodes.add(getScheduledEpisodes());
+		promoCampaignDetails = getPromoCampaignDetails();
+	}
+
+	private PromoCampaignDetails getPromoCampaignDetails() {
+		PromoCampaignDetails campaignDetails = new PromoCampaignDetails();
+		campaignDetails.setCampaignId(12l);
+		campaignDetails.setMediaType("mediaType");
+		campaignDetails.setPromoStrategyId(12l);
+		return campaignDetails;
+	}
+
+	private ScheduledEpisode getScheduledEpisodes() {
+		ScheduledEpisode episode = new ScheduledEpisode();
+		episode.setBillTime("12:00");
+		episode.setChannelName("channelName");
+		episode.setContractNumber("123");
+		episode.setEpisodeId(123l);
+		episode.setEpisodeNumber(12);
+		return episode;
+	}
+	
+	 
+	
+}

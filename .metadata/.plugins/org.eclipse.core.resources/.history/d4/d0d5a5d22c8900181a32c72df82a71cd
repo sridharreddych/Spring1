@@ -1,0 +1,159 @@
+package com.hcl.myhotel.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import com.hcl.myhotel.dao.jpa.HotelRepository;
+import com.hcl.myhotel.domain.Hotel;
+import com.hcl.myhotel.exception.RecordNotFoundException;
+
+@RunWith(MockitoJUnitRunner.class)
+public class HotelServiceTest {
+
+	@Mock
+	private HotelRepository hotelRepository;
+
+	@InjectMocks
+	private HotelServiceImpl hotelServiceImpl;
+
+	private static final String City = "hyd";
+	private static final Long id=1L;
+
+	private Hotel hotel;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		Hotel hotel = new Hotel();
+		hotel.setCity("hyd");
+		hotel.setDescription("good");
+		hotel.setId(1);
+		hotel.setName("sree");
+		hotel.setRating(8);
+	}
+
+	@Test
+	public void testSaveHotelDetailsPositive() throws Exception {
+		// Optional<Hotel> optionalHotel = Optional.of(hotel);
+		Mockito.when(hotelRepository.findHotelByCity("hyd")).thenReturn(hotel);
+
+	}
+
+	
+	
+
+	@Test
+	public void testGetHotelById() {
+		when(hotelRepository.findOne(id)).thenReturn(hotel);
+		try {
+			LoanOffer loanOfferObj = customerLoanServiceImpl.getLoanOffer(loanOffer.getLoanOfferId());
+			assertEquals(loanOffer, loanOfferObj);
+		} catch (LoanOfferException e) {
+
+		}
+	}
+
+	@Test
+	public void testGetLoanOfferInvalid() {
+		try {
+			LoanOffer loanOfferAct = customerLoanServiceImpl.getLoanOffer(loanOffer.getLoanOfferId());
+			assertEquals(loanOffer, loanOfferAct);
+		} catch (LoanOfferException e) {
+			assertThat(e.getMessage()).isEqualTo("Offer not available");
+
+		}
+	}
+
+	@Test
+	public void testAddLoanOffers() {
+		when(loanOfferRespsitory.save(loanOffer)).thenReturn(loanOffer);
+		try {
+			LoanOffer loanOfferAct = customerLoanServiceImpl.addLoanOffer(loanOffer);
+			assertEquals(loanOffer, loanOfferAct);
+
+		} catch (LoanOfferException e) {
+		}
+
+	}
+
+	@Test
+	public void testAddLoanOffersException() {
+		when(loanOfferRespsitory.findByMinimumSalaryEligibity(loanOffer.getMinimumSalaryEligibity()))
+				.thenReturn(loanOffer);
+
+		try {
+			LoanOffer loanOfferAct = customerLoanServiceImpl.addLoanOffer(loanOffer);
+			assertEquals(loanOffer, loanOfferAct);
+
+		} catch (LoanOfferException e) {
+			assertThat(e.getMessage()).isEqualTo("Offer already exists for the the given Salary eligibility");
+		}
+
+	}
+
+	@Test
+	public void testUpdateLoanOffers() {
+		when(loanOfferRespsitory.existsById(loanOffer.getLoanOfferId())).thenReturn(true);
+		when(loanOfferRespsitory.save(loanOffer)).thenReturn(loanOffer);
+
+		try {
+			LoanOffer loanOfferAct = customerLoanServiceImpl.updateLoanOffer(loanOffer);
+			assertEquals(loanOffer, loanOfferAct);
+
+		} catch (LoanOfferException e) {
+		}
+
+	}
+
+	@Test
+	public void testUpdateLoanOffersException() {
+		when(loanOfferRespsitory.existsById(loanOffer.getLoanOfferId())).thenReturn(false);
+
+		try {
+			LoanOffer loanOfferAct = customerLoanServiceImpl.updateLoanOffer(loanOffer);
+			assertEquals(loanOffer, loanOfferAct);
+
+		} catch (LoanOfferException e) {
+			assertThat(e.getMessage()).isEqualTo("Offer not exists");
+		}
+
+	}
+
+	@Test
+	public void testdeleteLoanOffers() {
+		when(loanOfferRespsitory.existsById(loanOffer.getLoanOfferId())).thenReturn(true);
+		try {
+			customerLoanServiceImpl.deleteLoanOffer(loanOffer.getLoanOfferId());
+
+		} catch (LoanOfferException e) {
+		}
+
+	}
+
+	@Test
+	public void testdeleteLoanOffersException() {
+		when(loanOfferRespsitory.existsById(loanOffer.getLoanOfferId())).thenReturn(false);
+		try {
+			customerLoanServiceImpl.deleteLoanOffer(loanOffer.getLoanOfferId());
+
+		} catch (LoanOfferException e) {
+			assertThat(e.getMessage()).isEqualTo("Offer not exists");
+		}
+
+	}
+	
+
+}

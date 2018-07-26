@@ -1,0 +1,9 @@
+package com.hcl.mybank.repository;
+
+import com.hcl.loan.model.User;
+
+public interface UserLoginDAO {
+
+	User validateLoginUser(User user);
+
+}

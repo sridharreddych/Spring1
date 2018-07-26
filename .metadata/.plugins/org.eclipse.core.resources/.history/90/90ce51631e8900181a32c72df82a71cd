@@ -1,0 +1,113 @@
+package com.hcl.myhotel;
+
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.http.ResponseEntity;
+
+import com.hcl.myhotel.api.rest.HotelController;
+import com.hcl.myhotel.domain.Hotel;
+import com.hcl.myhotel.service.HotelServiceImpl;
+import com.hcl.myhotel.exception.*;
+
+@RunWith(MockitoJUnitRunner.class)
+public class HotelControllerTest {
+
+	@InjectMocks
+	private HotelController hotelController;
+
+	@Mock
+	private HotelServiceImpl hotelServiceImpl;
+
+	private static final Integer HOTEL_ID = 200;
+
+	private Hotel hotel;
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		hotel = new Hotel();
+		hotel.setCity("hyd");
+		hotel.setDescription("rich city");
+		hotel.setId(1);
+		hotel.setName("sree");
+		hotel.setRating(7);
+	}
+
+	@Test
+	public void testSaveLoanDetailsPositive() throws Exception {
+
+		Mockito.when(hotelServiceImpl.createHotel(hotel)).thenReturn(hotel);
+		ResponseEntity<Hotel> hotelEntity = hotelController.createHotel(hotel);
+		assertNotNull(hotelEntity);
+	}
+
+	@Test(expected = RecordNotFoundException.class)
+	public void testSaveLoanDetailsException() throws Exception {
+		Mockito.when(customerLoanServiceImpl.saveLoanDetails(LOAN_ID, CUSTOMER_ID))
+				.thenThrow(new RecordNotFoundException());
+		customerLoanController.saveLoanDetails(LOAN_ID, CUSTOMER_ID);
+	}
+
+	 
+	@Test
+	public void testAddLoanOffer() throws Exception {
+
+		when(customerLoanServiceImpl.addLoanOffer(loanOffer)).thenReturn(loanOffer);
+		customerLoanController.addLoanOffer(loanOffer);
+
+	}
+
+	@Test
+	public void testUpdateLoanOffer() {
+		try {
+			customerLoanController.updateLoanOffer(loanOffer);
+		} catch (LoanOfferException e) {
+
+		}
+	}
+
+	@Test
+	public void testGetLoanOffer() {
+		try {
+			when(customerLoanServiceImpl.getLoanOffer(loanOffer.getLoanOfferId())).thenReturn(loanOffer);
+			customerLoanController.getLoanOffer(loanOffer.getLoanOfferId());
+		} catch (LoanOfferException e) {
+
+		}
+	}
+
+	@Test
+	public void testDeleteLoanOffer() {
+		try {
+			customerLoanController.deleteLoanOffer(loanOffer.getLoanOfferId());
+		} catch (LoanOfferException e) {
+
+		}
+	}
+	// Jaison Test Cases END 
+
+	// manjunath test cases START 
+	@Test
+	public void testCreateCustomerInformationPositive() {
+		Customer customer = new Customer();
+		customer.setCustomerId(100);
+		List<LoanOffer> loanOfferList = new ArrayList<>();
+		loanOfferList.add(loanOffer);
+		Mockito.when(customerLoanServiceImpl.saveCustomerInformation(customer)).thenReturn(loanOfferList);
+		ResponseEntity<List<LoanOffer>> responseEntity = customerLoanController.createCustomerInformation(customer);
+		assertNotNull(responseEntity);
+	}
+	 //manjunath test cases END */
+}

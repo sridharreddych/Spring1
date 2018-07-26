@@ -1,0 +1,20 @@
+package com.hcl.mybank.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.hcl.mybank.model.User;
+
+public interface UserDAO JpaRepository<User, Long> {
+
+	public User fetchUser(long userId);	
+	public User updateUser(long userId, User user);
+	 
+	public int persistUser(User user);
+	
+	public void deleteUser(long userId);
+	
+	public boolean existingUserCheck(User user);
+	
+	User findByEmail(String email);
+	
+}
